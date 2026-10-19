@@ -47,6 +47,13 @@ internal class Program
         --------------------------------------------------
         */
         RunValueVsReferenceDemo();
+
+        /*
+        --------------------------------------------------
+            PartD - Scope and Operators
+        --------------------------------------------------
+        */
+        RunScopeAndOperatorDemo();
     }
 
     static void RunTypesDemo()
@@ -184,5 +191,84 @@ internal class Program
         //  so both variables can refer to the same object in memory
 
     }
-    
+
+
+   private static int field = 1000; // Field-Scope variable
+    static void RunScopeAndOperatorDemo()
+    {
+        Console.WriteLine("\nPartD - Scope and Operators:");
+
+        Console.WriteLine("\nBlock-Scoped Variable:");
+        for(int i = 0; i < 3; i++)
+        {
+            int loopVariable = i * 10; // Block-Scoped variable
+            Console.WriteLine($"Loop Variable: {loopVariable}");
+        }
+        
+        // Console.WriteLine($"Loop Variable: {loopVariable}");
+        // loopvariable is not accessible outside the for loop block, as it is block-scoped.
+
+        Console.WriteLine("\nField-Scoped Variable:");
+        Method1();
+        Method2();  
+
+        Console.WriteLine($"Method: {field}");
+        // Method1 and Method2 can access the field-scope variable 'field'
+        
+
+        Console.WriteLine("\nMethod-Scoped Variable:");
+        Method3(); 
+        //Console.WriteLine($"Local Variable: {local}");
+        // local is not accessible outside Method3, as it is method-scoped.
+
+
+
+
+        // D2 - Comound Assignment Operators
+
+        Console.WriteLine("\nCompound Assignment Operators:");
+        int total = 100;
+        
+        total += 10; // total = total + 10
+        Console.WriteLine($"\nAfter +=: {total}");
+
+        total -= 5; // total = total - 5
+        Console.WriteLine($"After -=: {total}");
+
+        total *= 2; // total = total * 2
+        Console.WriteLine($"After *=: {total}");    
+
+        total /= 3; // total = total / 3
+        Console.WriteLine($"After /=: {total}");
+
+
+        // D3 - Bitwise Operators
+        int a = 12;
+        int b = 10;
+
+        Console.WriteLine("\nBitwise Operators:");
+        Console.WriteLine($"a & b: {a & b}"); // Bitwise AND
+        Console.WriteLine($"a | b: {a | b}"); // Bitwise OR
+        Console.WriteLine($"a ^ b: {a ^ b}"); // Bitwise XOR
+
+        //The & operator performs bitwwise AND on integers, returning a new integer 
+        // with bits set to 1 only where both operands have bits set to 1.
+
+        //The && operator is a logical AND operator that evaluates boolean expressions 
+        // and returns true only if both operands are true.
+    }
+    static void Method1()
+    {
+        Console.WriteLine($"Method One: {field}");
+    }
+    static void Method2()
+    {
+        Console.WriteLine($"Method Two: {field}");
+    }
+    static void Method3()
+    {
+        int local = 500; // Method-Scope variable
+        Console.WriteLine($"Local Variable: {local}");
+    }
+
 }
