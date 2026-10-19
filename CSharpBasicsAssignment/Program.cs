@@ -33,12 +33,20 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-                /*
+        /*
         --------------------------------------------------
                 PartB - Types & Conventions
         --------------------------------------------------
         */
         RunTypesDemo();
+
+
+        /*
+        --------------------------------------------------
+            PartC - Value Types vs Reference Types
+        --------------------------------------------------
+        */
+        RunValueVsReferenceDemo();
     }
 
     static void RunTypesDemo()
@@ -119,5 +127,62 @@ internal class Program
         Console.WriteLine($"decimal value: {d}");
         //An explicit cast is required to convert float to decimal
     }
+    
+    static void RunValueVsReferenceDemo()
+    {
+        Console.WriteLine("\nPartC - Value Types vs Reference Types:");
+        Point p1 = new Point{ X = 10, Y = 20};
+        Point p2 = p1;
 
+        p2.X = 99;
+        Console.WriteLine("\nValue Types:");
+        Console.WriteLine($"p1.X = {p1.X}");
+        Console.WriteLine($"p2.X = {p2.X}");
+        //Point is a value type, so assigning p1 ro p2 copies its data.
+        //Changing p2 does not affect p1 because each variable has its own copy.
+
+        Order order1 = new Order
+        {
+            Id = 1,
+            CustomerName = "John Doe",
+            Quantity = 5,
+            UnitPrice = 10.5m,
+            TotalPrice = 52.5m,
+            IsPaid = false,
+            DiscountPercent = 10.0,
+            ShippingCity = "New York",
+            Priority = 'H',
+            ItemCode = 1234567890L
+        };
+
+        Console.WriteLine("\nReference Types:");
+        Console.WriteLine($"Order1 Total Price: {order1.CalculateTotalPrice()}");
+
+        Order order2 = order1;
+        order2.IsPaid = true;
+        Console.WriteLine($"Is Paid Order1: {order1.IsPaid}");
+        Console.WriteLine($"Is Paid Order2: {order2.IsPaid}");
+        //Order is a reference type, so assigning o1 to o2 copies the reference.
+        //Both variables refer to the same object in memory
+        //Changes made through o2 are visible through o1
+
+
+        object boxedOrder = order1;
+
+        Console.WriteLine(object.ReferenceEquals(boxedOrder, order1));
+
+        Order order3 = (Order)boxedOrder;
+        Console.WriteLine(object.ReferenceEquals(order1, order3));
+
+        order1.PrintSummary();
+
+        //Value types store their data directly,
+        // and assigning one value type variable to another copies its data.
+
+        //Reference types store references to objects,
+        //  and assigning one reference variable to another copies the reference,
+        //  so both variables can refer to the same object in memory
+
+    }
+    
 }
